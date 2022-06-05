@@ -44,7 +44,7 @@ export default class Cell {
     flag() {
         this.isFlagged = true;
         let flagImgObj = new Image();
-        flagImgObj.src = '/src/img/flag.png'
+        flagImgObj.src = './src/img/flag.png'
         this.image = new Konva.Image({
             x: this.x,
             y: this.y,
@@ -60,7 +60,7 @@ export default class Cell {
         this.isOpened = false;
         this.isFlagged = false;
         let cellClosedImgObj = new Image();
-        cellClosedImgObj.src = '/abcdef/src/img/cell.png'
+        cellClosedImgObj.src = './src/img/cell.png'
         this.image = new Konva.Image({
             x: this.x,
             y: this.y,
@@ -78,7 +78,7 @@ export default class Cell {
 
     drawEmpty() {
         let cellOpenedImgObj = new Image();
-        cellOpenedImgObj.src = '/src/img/cell-opened.png'
+        cellOpenedImgObj.src = './src/img/cell-opened.png'
         this.image = new Konva.Image({
             x: this.x,
             y: this.y,
@@ -91,7 +91,7 @@ export default class Cell {
 
     drawMine() {
         let MineImgObj = new Image();
-        MineImgObj.src = '/src/img/mine.png'
+        MineImgObj.src = './src/img/mine.png'
         this.image = new Konva.Image({
             x: this.x,
             y: this.y,
