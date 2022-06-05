@@ -23,7 +23,7 @@ export default class Game {
 	    
 	    var triangle = new Konva.RegularPolygon({
         x: 190,
-        y: stage.height() / 2,
+        y: this.stage.height() / 2,
         sides: 3,
         radius: 80,
         fill: 'green',
@@ -33,7 +33,7 @@ export default class Game {
 
       var circle = new Konva.Circle({
         x: 380,
-        y: stage.height() / 2,
+        y: this.stage.height() / 2,
         radius: 70,
         fill: 'red',
         stroke: 'black',
