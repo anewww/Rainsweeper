@@ -49,7 +49,7 @@ export default class Game {
         let bindTouchHandler = touchHandler.bind(this);
         this.stage.on('touchstart', bindTouchHandler);
         function touchHandler(e) {
-            console.log(0)
+            console.log('lastcenter' + lastCenter)
             e.evt.preventDefault();
             let touch1 = e.evt.touches[0];
             let touch2 = e.evt.touches[1];
@@ -72,8 +72,9 @@ export default class Game {
                     y: touch2.clientY,
                 };
                 if (!lastCenter) {
-                    console.log('!lastCenter')
+                    console.log('!lastCenter' + lastCenter)
                     lastCenter = getCenter(p1, p2);
+                    console.log(lastCenter)
                     return;
                 }
                 let newCenter = getCenter(p1, p2);
