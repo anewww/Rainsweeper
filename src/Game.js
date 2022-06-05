@@ -16,6 +16,8 @@ export default class Game {
             number: 'num',
         }
         this.field = null;
+        this.lastCenter = null;
+        this.lastDist = 0;
     }
 
     init() {
@@ -44,12 +46,11 @@ export default class Game {
             };
         }
 
-        let lastCenter = null;
-        let lastDist = 0;
+        
         let bindTouchHandler = touchHandler.bind(this);
         this.stage.on('touchstart', bindTouchHandler);
         function touchHandler(e) {
-            console.log('lastcenter' + lastCenter)
+            console.log('lastcenter ' + this.lastCenter)
             e.evt.preventDefault();
             let touch1 = e.evt.touches[0];
             let touch2 = e.evt.touches[1];
@@ -71,17 +72,17 @@ export default class Game {
                     x: touch2.clientX,
                     y: touch2.clientY,
                 };
-                if (!lastCenter) {
-                    console.log('!lastCenter' + lastCenter)
-                    lastCenter = getCenter(p1, p2);
-                    console.log(lastCenter)
+                if (!this.lastCenter) {
+                    console.log('!lastCenter ' + this.lastCenter)
+                    this.lastCenter = getCenter(p1, p2);
+                    console.log(this.lastCenter)
                     return;
                 }
                 let newCenter = getCenter(p1, p2);
                 let dist = getDistance(p1, p2);
-                if (!lastDist) {
+                if (!this.lastDist) {
                     console.log('!lastDist')
-                    lastDist = dist;
+                    this.lastDist = dist;
                 }
                 // local coordinates of center point
                 let pointTo = {
@@ -89,15 +90,15 @@ export default class Game {
                     y: (newCenter.y - this.stage.y()) / this.stage.scaleX(),
                 };
 
-                console.log(this.stage.scaleX() + ' ' + dist + ' ' + lastDist)
-                let scale = this.stage.scaleX() * (dist / lastDist);
+                console.log(this.stage.scaleX() + ' ' + dist + ' ' + this.lastDist)
+                let scale = this.stage.scaleX() * (dist / this.lastDist);
                 console.log(scale)
                 this.stage.scaleX(scale);
                 this.stage.scaleY(scale);
 
                 // calculate new position of the stage
-                let dx = newCenter.x - lastCenter.x;
-                let dy = newCenter.y - lastCenter.y;
+                let dx = newCenter.x - this.lastCenter.x;
+                let dy = newCenter.y - this.lastCenter.y;
 
                 let newPos = {
                     x: newCenter.x - pointTo.x * scale + dx,
@@ -106,14 +107,14 @@ export default class Game {
                 console.log(newPos)
                 this.stage.position(newPos);
 
-                lastDist = dist;
-                lastCenter = newCenter;
+                this.lastDist = dist;
+                this.lastCenter = newCenter;
             }
         }
 
         this.stage.on('touchend', function () {
-            lastDist = 0;
-            lastCenter = null;
+            this.lastDist = 0;
+            this.lastCenter = null;
         });
 
         this.stage.add(this.layer);
