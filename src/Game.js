@@ -46,15 +46,18 @@ export default class Game {
 
         let lastCenter = null;
         let lastDist = 0;
-                
-        this.stage.on('touchstart', (e) => (function() {
+        let bindTouchHandler = touchHandler.bind(this);
+        this.stage.on('touchstart', bindTouchHandler);
+        function touchHandler(e) {
             console.log(0)
             e.evt.preventDefault();
             let touch1 = e.evt.touches[0];
             let touch2 = e.evt.touches[1];
             console.log(touch1)
+            console.log()
 
             if (touch1 && touch2) {
+                console.log('two touches')
                 // if the stage was under Konva's drag&drop
                 // we need to stop it, and implement our own pan logic with two pointers
                 if (this.stage.isDragging()) {
@@ -101,11 +104,11 @@ export default class Game {
                 lastDist = dist;
                 lastCenter = newCenter;
             }
-        }).bind(this));
+        }
 
         this.stage.on('touchend', function () {
-        lastDist = 0;
-        lastCenter = null;
+            lastDist = 0;
+            lastCenter = null;
         });
 
         this.stage.add(this.layer);
