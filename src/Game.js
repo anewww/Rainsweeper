@@ -19,7 +19,7 @@ export default class Game {
     }
 
     init() {
-        this.stage.add(this.layer);
+	Konva.hitOnDragEnabled = true;
 
         // prevent contextmenu while rightclicking
         this.stage.addEventListener('contextmenu', (e) => {
@@ -109,6 +109,9 @@ export default class Game {
         lastDist = 0;
         lastCenter = null;
         });    
+	    
+        this.stage.add(this.layer);
+	    
 	}
 
     newGame(w, h, m) {
