@@ -178,6 +178,13 @@ export default class Cell {
                 this.depthFirstSearch(this.ind, this.jnd);
             }
         });
+                img.on('touchstart', (e) => {
+            if (e.evt.button === 0 && this.isFlagged === false) {
+                game.field.memory = [];
+                this.depthFirstSearch(this.ind, this.jnd);
+            }
+        });
+        
         // right click listener
         img.addEventListener('contextmenu', () => {
             //e.preventDefault();
