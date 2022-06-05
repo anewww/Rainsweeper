@@ -179,10 +179,8 @@ export default class Cell {
             }
         });
                 img.on('touchstart', (e) => {
-            if (e.evt.button === 0 && this.isFlagged === false) {
                 game.field.memory = [];
                 this.depthFirstSearch(this.ind, this.jnd);
-            }
         });
         
         // right click listener
