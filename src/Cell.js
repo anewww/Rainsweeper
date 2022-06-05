@@ -44,7 +44,7 @@ export default class Cell {
     flag() {
         this.isFlagged = true;
         let flagImgObj = new Image();
-        flagImgObj.src = '/abcdef/src/img/flag.png'
+        flagImgObj.src = './src/img/flag.png'
         this.image = new Konva.Image({
             x: this.x,
             y: this.y,
