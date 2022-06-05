@@ -60,7 +60,7 @@ export default class Cell {
         this.isOpened = false;
         this.isFlagged = false;
         let cellClosedImgObj = new Image();
-        cellClosedImgObj.src = './src/img/cell.png'
+        cellClosedImgObj.src = '/abcdef/src/img/cell.png'
         this.image = new Konva.Image({
             x: this.x,
             y: this.y,
