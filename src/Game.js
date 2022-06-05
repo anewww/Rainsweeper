@@ -54,13 +54,13 @@ export default class Game {
             let touch1 = e.evt.touches[0];
             let touch2 = e.evt.touches[1];
             console.log(touch1)
-            console.log()
 
             if (touch1 && touch2) {
                 console.log('two touches')
                 // if the stage was under Konva's drag&drop
                 // we need to stop it, and implement our own pan logic with two pointers
                 if (this.stage.isDragging()) {
+                    console.log('isDragging')
                     this.stage.stopDrag();
                 }
                 let p1 = {
@@ -72,12 +72,14 @@ export default class Game {
                     y: touch2.clientY,
                 };
                 if (!lastCenter) {
+                    console.log('!lastCenter')
                     lastCenter = getCenter(p1, p2);
                     return;
                 }
                 let newCenter = getCenter(p1, p2);
                 let dist = getDistance(p1, p2);
                 if (!lastDist) {
+                    console.log('!lastDist')
                     lastDist = dist;
                 }
                 // local coordinates of center point
@@ -86,7 +88,9 @@ export default class Game {
                     y: (newCenter.y - this.stage.y()) / this.stage.scaleX(),
                 };
 
+                console.log(this.stage.scaleX() + ' ' + dist + ' ' + lastDist)
                 let scale = this.stage.scaleX() * (dist / lastDist);
+                console.log(scale)
                 this.stage.scaleX(scale);
                 this.stage.scaleY(scale);
 
@@ -98,7 +102,7 @@ export default class Game {
                     x: newCenter.x - pointTo.x * scale + dx,
                     y: newCenter.y - pointTo.y * scale + dy,
                 };
-
+                console.log(newPos)
                 this.stage.position(newPos);
 
                 lastDist = dist;
