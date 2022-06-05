@@ -48,7 +48,8 @@ export default class Game {
 
         
         let bindTouchHandler = touchHandler.bind(this);
-        this.stage.on('touchstart', bindTouchHandler);
+        this.stage.on('touchmove', bindTouchHandler);
+        
         function touchHandler(e) {
             console.log('lastcenter ' + this.lastCenter)
             e.evt.preventDefault();
@@ -73,9 +74,7 @@ export default class Game {
                     y: touch2.clientY,
                 };
                 if (!this.lastCenter) {
-                    console.log('!lastCenter ' + this.lastCenter)
                     this.lastCenter = getCenter(p1, p2);
-                    console.log(this.lastCenter)
                     return;
                 }
                 let newCenter = getCenter(p1, p2);
@@ -90,9 +89,7 @@ export default class Game {
                     y: (newCenter.y - this.stage.y()) / this.stage.scaleX(),
                 };
 
-                console.log(this.stage.scaleX() + ' ' + dist + ' ' + this.lastDist)
                 let scale = this.stage.scaleX() * (dist / this.lastDist);
-                console.log(scale)
                 this.stage.scaleX(scale);
                 this.stage.scaleY(scale);
 
@@ -104,7 +101,6 @@ export default class Game {
                     x: newCenter.x - pointTo.x * scale + dx,
                     y: newCenter.y - pointTo.y * scale + dy,
                 };
-                console.log(newPos)
                 this.stage.position(newPos);
 
                 this.lastDist = dist;
