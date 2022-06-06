@@ -5,8 +5,8 @@
 }
 
 body {
-    /* background-image: url("https://kartinkin.net/uploads/posts/2021-07/1625829540_2-kartinkin-com-p-oboi-noch-dozhd-krasivie-2.jpg"); */
-    background-color: #29344D;
+    background-image: url("https://kartinkin.net/uploads/posts/2021-07/1625829540_2-kartinkin-com-p-oboi-noch-dozhd-krasivie-2.jpg");
+    /* background-color: #29344D; */
     background-size: 1920px 1080px;
     backdrop-filter: blur(25px);
 }
