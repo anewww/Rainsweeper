@@ -69,9 +69,9 @@ export default class Game {
             if (touch1 && touch2) {
                 // if the stage was under Konva's drag&drop
                 // we need to stop it, and implement our own pan logic with two pointers
-                if (this.stage.isDragging()) {
-                    this.stage.stopDrag();
-                }
+                // if (this.stage.isDragging()) {
+                //     this.stage.stopDrag();
+                // }
                 let p1 = {
                     x: touch1.clientX,
                     y: touch1.clientY,
