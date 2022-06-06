@@ -204,14 +204,14 @@ export default class Cell {
                     this.depthFirstSearch(this.ind, this.jnd);
                     break;
                 case 'dbltap':
-                    rightClickHandler();
+                    rightClickHandler.call(this);
                     break;
             }
             
         });
         
         // right click listener
-        img.addEventListener('contextmenu', rightClickHandler);
+        img.addEventListener('contextmenu', rightClickHandler.bind(this));
         function rightClickHandler() {
             if (this.isFlagged === false) {
                 this.isFlagged = true;
