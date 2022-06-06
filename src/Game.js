@@ -116,11 +116,11 @@ export default class Game {
             }
         }
 
-        this.stage.on('touchend', function () {
+        this.stage.on('touchend', (function() {
             this.lastDist = 0;
             this.lastCenter = null;
             console.log('lastdist ' + this.lastDist + ', lastcenter ' + this.lastCenter)
-        });
+        }).bind(this));
 	}
 
     newGame(w, h, m) {
