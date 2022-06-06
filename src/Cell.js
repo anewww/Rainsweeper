@@ -187,7 +187,7 @@ export default class Cell {
                         this.depthFirstSearch(this.ind, this.jnd);
                     }
                     break;
-                case 'tap':
+                case 'touchstart':
                     let now = new Date().getTime();
                     let timesince = now - mylatesttap;
                     if ((timesince < 600) && (timesince > 0)) {
