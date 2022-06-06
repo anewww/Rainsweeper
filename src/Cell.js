@@ -67,6 +67,8 @@ export default class Cell {
             image: cellClosedImgObj,
             width: 50,
             height: 50,
+            scaleX: game.scale,
+            scaleY: game.scale,
         });
         game.layer.add(this.image);
         this.addListener(this.image);
@@ -85,6 +87,8 @@ export default class Cell {
             image: cellOpenedImgObj,
             width: 50,
             height: 50,
+            scaleX: game.scale,
+            scaleY: game.scale,
         });
         game.layer.add(this.image);
     }
@@ -98,6 +102,8 @@ export default class Cell {
             image: MineImgObj,
             width: 50,
             height: 50,
+            scaleX: game.scale,
+            scaleY: game.scale,
         });
         game.layer.add(this.image);
     }
@@ -106,10 +112,10 @@ export default class Cell {
         this.drawEmpty();
         function drawDigit(color, number) {
             let simpleText = new Konva.Text({
-                x: this.x + 25,
-                y: this.y + 25 + 5,
+                x: this.x + 25 * game.scale,
+                y: this.y + 30 * game.scale,
                 text: number,
-                fontSize: 35,
+                fontSize: 35 * game.scale,
                 //fontFamily: 'arial sans-serif',
                 fontFamily: 'cursive',
                 fill: color,
@@ -171,7 +177,8 @@ export default class Cell {
 
     addListener(img) {
         // click listener
-        //let thisCell = this;        
+        img.on('dbltap', rightClickHandler);
+
         img.on('mousedown tap', (e) => {
             switch (e.evt.type) {
                 case 'mousedown':
@@ -190,7 +197,6 @@ export default class Cell {
         
         // right click listener
         img.addEventListener('contextmenu', rightClickHandler);
-        img.on('dbltap', rightClickHandler);
         function rightClickHandler() {
             if (this.isFlagged === false) {
                 this.isFlagged = true;
