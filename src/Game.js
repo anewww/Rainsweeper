@@ -1,6 +1,4 @@
 import Field from './Field.js'
-import PinchZoom from './lib/pinch-zoom.js'
-//import { game } from './main.js'
 
 export default class Game {
     constructor() {
@@ -8,7 +6,7 @@ export default class Game {
             container: 'container',
             width: window.innerWidth,
             height: window.innerHeight,
-            //draggable: true,
+            centeredScaling: true,
         });
         this.layer = new Konva.Layer();
         this.cellStatus = {
@@ -17,12 +15,18 @@ export default class Game {
             number: 'num',
         }
         this.field = null;
-        this.lastCenter = null;
-        this.lastDist = 0;
+        this.pinchZoom = {
+            lastCenter: null,
+            lastDist: 0,
+            isDragging: false,
+        }
+        this.scale = 1;
     }
 
     init() {
-        //Konva.hitOnDragEnabled = true;
+        // this.stage.scaleX(game.scale);
+        // this.stage.scaleY(game.scale);
+        this.stage.add(this.layer);
 
         // prevent contextmenu while rightclicking
         this.stage.addEventListener('contextmenu', (e) => {
@@ -35,43 +39,15 @@ export default class Game {
             }
         });
 
-        this.stage.add(this.layer);
-
-        // let el = document.querySelector('#container');
-        // let pinchz = new PinchZoom(el, {
-        //     tapZoomFactor: 2,
-        //     zoomOutFactor: 1.3,
-        //     maxZoom: 4,
-        //     minZoom: 0.5,
-        // });
-        // pinchz.enable();
-
         // mobile scaling
-        function getDistance(p1, p2) {
-            return Math.sqrt(Math.pow(p2.x - p1.x, 2) + Math.pow(p2.y - p1.y, 2));
-        }
-    
-        function getCenter(p1, p2) {
-            return {
-                x: (p1.x + p2.x) / 2,
-                y: (p1.y + p2.y) / 2,
-            };
-        }
- 
-        //let bindTouchHandler = touchHandler.bind(this);
-        this.stage.on('touchmove', touchHandler.bind(this));
-        
-        function touchHandler(e) {
+        this.stage.on('touchmove', (function(e) {
             e.evt.preventDefault();
             let touch1 = e.evt.touches[0];
             let touch2 = e.evt.touches[1];
 
             if (touch1 && touch2) {
-                // if the stage was under Konva's drag&drop
-                // we need to stop it, and implement our own pan logic with two pointers
-                // if (this.stage.isDragging()) {
-                //     this.stage.stopDrag();
-                // }
+                this.pinchZoom.isDragging = true;
+
                 let p1 = {
                     x: touch1.clientX,
                     y: touch1.clientY,
@@ -80,15 +56,14 @@ export default class Game {
                     x: touch2.clientX,
                     y: touch2.clientY,
                 };
-                if (!this.lastCenter) {
-                    console.log('lastCenter === null')
-                    this.lastCenter = getCenter(p1, p2);
+                if (!this.pinchZoom.lastCenter) {
+                    this.pinchZoom.lastCenter = getCenter(p1, p2);
                     return;
                 }
                 let newCenter = getCenter(p1, p2);
                 let dist = getDistance(p1, p2);
-                if (!this.lastDist) {
-                    this.lastDist = dist;
+                if (!this.pinchZoom.lastDist) {
+                    this.pinchZoom.lastDist = dist;
                 }
                 // local coordinates of center point
                 let pointTo = {
@@ -96,30 +71,38 @@ export default class Game {
                     y: (newCenter.y - this.stage.y()) / this.stage.scaleX(),
                 };
 
-                let scale = this.stage.scaleX() * (dist / this.lastDist);
-                console.log('scale ' + scale)
-                this.stage.scaleX(scale);
-                this.stage.scaleY(scale);
+                let stageScale = this.stage.scaleX() * (dist / this.pinchZoom.lastDist);
+                this.stage.scaleX(stageScale);
+                this.stage.scaleY(stageScale);
 
                 // calculate new position of the stage
-                let dx = newCenter.x - this.lastCenter.x;
-                let dy = newCenter.y - this.lastCenter.y;
+                let dx = newCenter.x - this.pinchZoom.lastCenter.x;
+                let dy = newCenter.y - this.pinchZoom.lastCenter.y;
 
                 let newPos = {
-                    x: newCenter.x - pointTo.x * scale + dx,
-                    y: newCenter.y - pointTo.y * scale + dy,
+                    x: newCenter.x - pointTo.x * stageScale + dx,
+                    y: newCenter.y - pointTo.y * stageScale + dy,
                 };
                 this.stage.position(newPos);
 
-                this.lastDist = dist;
-                this.lastCenter = newCenter;
+                this.pinchZoom.lastDist = dist;
+                this.pinchZoom.lastCenter = newCenter;
             }
+        }).bind(this));
+        function getDistance(p1, p2) {
+            return Math.sqrt(Math.pow(p2.x - p1.x, 2) + Math.pow(p2.y - p1.y, 2));
+        }
+        function getCenter(p1, p2) {
+            return {
+                x: (p1.x + p2.x) / 2,
+                y: (p1.y + p2.y) / 2,
+            };
         }
 
         this.stage.on('touchend', (function() {
-            this.lastDist = 0;
-            this.lastCenter = null;
-            console.log('lastdist ' + this.lastDist + ', lastcenter ' + this.lastCenter)
+            this.pinchZoom.isDragging = false;
+            this.pinchZoom.lastDist = 0;
+            this.pinchZoom.lastCenter = null;
         }).bind(this));
 	}
 
