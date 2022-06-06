@@ -104,8 +104,8 @@ export default class Game {
                 let dy = newCenter.y - this.lastCenter.y;
 
                 let newPos = {
-                    x: (newCenter.x - pointTo.x) * scale + dx,
-                    y: (newCenter.y - pointTo.y) * scale + dy,
+                    x: newCenter.x - pointTo.x * scale + dx,
+                    y: newCenter.y - pointTo.y * scale + dy,
                 };
                 this.stage.position(newPos);
 
