@@ -81,6 +81,7 @@ export default class Game {
                     y: touch2.clientY,
                 };
                 if (!this.lastCenter) {
+                    console.log('lastCenter === null')
                     this.lastCenter = getCenter(p1, p2);
                     return;
                 }
@@ -96,6 +97,7 @@ export default class Game {
                 };
 
                 let scale = this.stage.scaleX() * (dist / this.lastDist);
+                console.log('scale ' + scale)
                 this.stage.scaleX(scale);
                 this.stage.scaleY(scale);
 
@@ -104,8 +106,8 @@ export default class Game {
                 let dy = newCenter.y - this.lastCenter.y;
 
                 let newPos = {
-                    x: newCenter.x - pointTo.x  + dx,
-                    y: newCenter.y - pointTo.y  + dy,
+                    x: newCenter.x - pointTo.x * scale + dx,
+                    y: newCenter.y - pointTo.y * scale + dy,
                 };
                 this.stage.position(newPos);
 
