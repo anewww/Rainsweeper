@@ -173,11 +173,19 @@ export default class Cell {
         // click listener
         //let thisCell = this;        
         img.on('mousedown touchend', (e) => {
-            console.log(e)
-            if (e.evt.button === 0 && this.isFlagged === false) {
-                game.field.memory = [];
-                this.depthFirstSearch(this.ind, this.jnd);
+            switch (e.evt.type) {
+                case 'mousedown':
+                    if (e.evt.button === 0 && this.isFlagged === false) {
+                        game.field.memory = [];
+                        this.depthFirstSearch(this.ind, this.jnd);
+                    }
+                    break;
+                case 'touchend':
+                    game.field.memory = [];
+                    this.depthFirstSearch(this.ind, this.jnd);
+                    break;
             }
+            
         });
         
         // right click listener
