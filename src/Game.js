@@ -38,8 +38,10 @@ export default class Game {
         this.stage.add(this.layer);
 
         let el = document.querySelector('#container');
-        let pinchz = new PinchZoom(el);
- 
+        let pinchz = new PinchZoom(el, {
+
+        });
+        pinchz.enable();
 
         // // mobile scaling
         // function getDistance(p1, p2) {
