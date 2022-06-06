@@ -172,7 +172,7 @@ export default class Cell {
     addListener(img) {
         // click listener
         //let thisCell = this;        
-        img.on('mousedown touchend', (e) => {
+        img.on('mousedown tap', (e) => {
             switch (e.evt.type) {
                 case 'mousedown':
                     if (e.evt.button === 0 && this.isFlagged === false) {
@@ -189,8 +189,9 @@ export default class Cell {
         });
         
         // right click listener
-        img.addEventListener('contextmenu', () => {
-            //e.preventDefault();
+        img.addEventListener('contextmenu', rightClickHandler);
+        img.on('dbltap', rightClickHandler);
+        function rightClickHandler() {
             if (this.isFlagged === false) {
                 this.isFlagged = true;
                 this.flag();
@@ -199,6 +200,6 @@ export default class Cell {
                 this.isFlagged = false;
                 this.drawClosed();
             }
-        });
+        }
     }
 }
