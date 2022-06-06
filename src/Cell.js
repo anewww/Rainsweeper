@@ -11,6 +11,7 @@ export default class Cell {
         this.ind = i;
         this.jnd = j;
         this.image = null;
+        this.tapTime = 0;
     }
 
     get NearMines() {
@@ -177,9 +178,8 @@ export default class Cell {
 
     addListener(img) {
         // click listener
-        img.on('dbltap', rightClickHandler);
 
-        img.on('mousedown tap', (e) => {
+        img.on('mousedown tap dbltap', (e) => {
             switch (e.evt.type) {
                 case 'mousedown':
                     if (e.evt.button === 0 && this.isFlagged === false) {
@@ -187,9 +187,24 @@ export default class Cell {
                         this.depthFirstSearch(this.ind, this.jnd);
                     }
                     break;
-                case 'touchend':
+                case 'tap':
+                    // let now = new Date().getTime();
+                    // let timesince = now - mylatesttap;
+                    // if ((timesince < 600) && (timesince > 0)) {
+
+                    //     // double tap   
+
+                    // }
+                    // else {
+                    //             // too much time to be a doubletap
+                    // }
+                    // this.tapTime = new Date().getTime();
+
                     game.field.memory = [];
                     this.depthFirstSearch(this.ind, this.jnd);
+                    break;
+                case 'dbltap':
+                    rightClickHandler();
                     break;
             }
             
@@ -207,5 +222,6 @@ export default class Cell {
                 this.drawClosed();
             }
         }
+        //img.on('dbltap', rightClickHandler);
     }
 }
