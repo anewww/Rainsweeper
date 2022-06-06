@@ -39,7 +39,10 @@ export default class Game {
 
         let el = document.querySelector('#container');
         let pinchz = new PinchZoom(el, {
-
+            tapZoomFactor: 2,
+            zoomOutFactor: 1.3,
+            maxZoom: 4,
+            minZoom: 0.5,
         });
         pinchz.enable();
 
