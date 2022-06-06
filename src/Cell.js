@@ -179,7 +179,7 @@ export default class Cell {
     addListener(img) {
         // click listener
 
-        img.on('mousedown tap dbltap', (e) => {
+        img.on('mousedown touchstart', (e) => {
             switch (e.evt.type) {
                 case 'mousedown':
                     if (e.evt.button === 0 && this.isFlagged === false) {
@@ -188,23 +188,16 @@ export default class Cell {
                     }
                     break;
                 case 'tap':
-                    // let now = new Date().getTime();
-                    // let timesince = now - mylatesttap;
-                    // if ((timesince < 600) && (timesince > 0)) {
-
-                    //     // double tap   
-
-                    // }
-                    // else {
-                    //             // too much time to be a doubletap
-                    // }
-                    // this.tapTime = new Date().getTime();
-
-                    game.field.memory = [];
-                    this.depthFirstSearch(this.ind, this.jnd);
-                    break;
-                case 'dbltap':
-                    rightClickHandler.call(this);
+                    let now = new Date().getTime();
+                    let timesince = now - mylatesttap;
+                    if ((timesince < 600) && (timesince > 0)) {
+                        rightClickHandler.call(this); 
+                    }
+                    else {
+                        game.field.memory = [];
+                        this.depthFirstSearch(this.ind, this.jnd);
+                    }
+                    this.tapTime = new Date().getTime();
                     break;
             }
             
