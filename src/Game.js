@@ -92,7 +92,7 @@ export default class Game {
                 // local coordinates of center point
                 let pointTo = {
                     x: (newCenter.x - this.stage.x()) / this.stage.scaleX(),
-                    y: (newCenter.y - this.stage.y()) / this.stage.scaleY(),
+                    y: (newCenter.y - this.stage.y()) / this.stage.scaleX(),
                 };
 
                 let scale = this.stage.scaleX() * (dist / this.lastDist);
@@ -104,8 +104,8 @@ export default class Game {
                 let dy = newCenter.y - this.lastCenter.y;
 
                 let newPos = {
-                    x: newCenter.x - pointTo.x * scale + dx,
-                    y: newCenter.y - pointTo.y * scale + dy,
+                    x: newCenter.x - pointTo.x  + dx,
+                    y: newCenter.y - pointTo.y  + dy,
                 };
                 this.stage.position(newPos);
 
