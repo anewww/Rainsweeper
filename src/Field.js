@@ -15,7 +15,7 @@ export default class Field {
         for (let i = 0; i < this.width; i++) {
             this.cells[i] = [];
             for (let j = 0; j < this.height; j++) {
-                this.cells[i][j] = new Cell(i * 50 + ((window.innerWidth - 50 * this.width) / 2), j * 50 + 50, i, j);
+                this.cells[i][j] = new Cell(i * 50 * game.scale + ((window.innerWidth - 50 * game.scale * this.width) / 2), j * 50 * game.scale + 50, i, j);
                 this.cells[i][j].drawClosed();
             }
         }
@@ -99,6 +99,4 @@ export default class Field {
         }
         this.memory = [];
     }
-
-
 }
