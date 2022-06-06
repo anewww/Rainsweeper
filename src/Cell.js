@@ -180,6 +180,7 @@ export default class Cell {
         // click listener
 
         img.on('mousedown touchstart', (e) => {
+            console.log('event')
             switch (e.evt.type) {
                 case 'mousedown':
                     if (e.evt.button === 0 && this.isFlagged === false) {
@@ -188,6 +189,7 @@ export default class Cell {
                     }
                     break;
                 case 'touchstart':
+                    console.log('touchstart')
                     let now = new Date().getTime();
                     let timesince = now - mylatesttap;
                     if ((timesince < 600) && (timesince > 0)) {
