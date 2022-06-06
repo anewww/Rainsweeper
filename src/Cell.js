@@ -191,7 +191,7 @@ export default class Cell {
                 case 'touchstart':
                     console.log('touchstart')
                     let now = new Date().getTime();
-                    let timesince = now - mylatesttap;
+                    let timesince = now - this.tapTime;
                     if ((timesince < 600) && (timesince > 0)) {
                         rightClickHandler.call(this); 
                     }
