@@ -1,4 +1,5 @@
 import Field from './Field.js'
+import PinchZoom from './lib/pinch-zoom.js'
 //import { game } from './main.js'
 
 export default class Game {
@@ -36,10 +37,8 @@ export default class Game {
 
         this.stage.add(this.layer);
 
-        //let el = document.querySelector('#container');
-        let pinchz = new PinchZoom(this.stage, {
-            
-        });
+        let el = document.querySelector('#container');
+        let pinchz = new PinchZoom(el);
  
 
         // // mobile scaling
