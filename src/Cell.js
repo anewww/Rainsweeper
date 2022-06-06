@@ -180,7 +180,6 @@ export default class Cell {
         // click listener
 
         img.on('mousedown touchstart', (e) => {
-            console.log('event')
             switch (e.evt.type) {
                 case 'mousedown':
                     if (e.evt.button === 0 && this.isFlagged === false) {
@@ -189,10 +188,12 @@ export default class Cell {
                     }
                     break;
                 case 'touchstart':
-                    console.log('touchstart')
+                    //if (game.pinchZoom.isDragging === false)
                     let now = new Date().getTime();
                     let timesince = now - this.tapTime;
+                    console.log('now ' + now, ' timesince ' + timesince, ' taptime ' + this.tapTime)
                     if ((timesince < 600) && (timesince > 0)) {
+                        console.log('rightclickhandler')
                         rightClickHandler.call(this); 
                     }
                     else {
@@ -200,6 +201,7 @@ export default class Cell {
                         this.depthFirstSearch(this.ind, this.jnd);
                     }
                     this.tapTime = new Date().getTime();
+                    console.log('taptime ' + tapTime)
                     break;
             }
             
