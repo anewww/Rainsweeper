@@ -188,20 +188,21 @@ export default class Cell {
                     }
                     break;
                 case 'touchstart':
-                    //if (game.pinchZoom.isDragging === false)
-                    let now = new Date().getTime();
-                    let timesince = now - this.tapTime;
-                    console.log('now ' + now, ' timesince ' + timesince, ' taptime ' + this.tapTime)
-                    if ((timesince < 600) && (timesince > 0)) {
-                        console.log('rightclickhandler')
-                        rightClickHandler.call(this); 
+                    if (game.pinchZoom.isDragging === false) {
+                        let now = new Date().getTime();
+                        let timesince = now - this.tapTime;
+                        console.log('now ' + now, ' timesince ' + timesince, ' taptime ' + this.tapTime)
+                        if ((timesince < 600) && (timesince > 0)) {
+                            console.log('rightclickhandler')
+                            rightClickHandler.call(this); 
+                        }
+                        else {
+                            game.field.memory = [];
+                            this.depthFirstSearch(this.ind, this.jnd);
+                        }
+                        this.tapTime = new Date().getTime();
+                        console.log('taptime ' + this.tapTime)
                     }
-                    else {
-                        game.field.memory = [];
-                        this.depthFirstSearch(this.ind, this.jnd);
-                    }
-                    this.tapTime = new Date().getTime();
-                    console.log('taptime ' + tapTime)
                     break;
             }
             
