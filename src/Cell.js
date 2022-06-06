@@ -179,7 +179,7 @@ export default class Cell {
     addListener(img) {
         // click listener
 
-        img.on('mousedown touchstart', (e) => {
+        img.on('mousedown touchstart', ((e) => {
             switch (e.evt.type) {
                 case 'mousedown':
                     if (e.evt.button === 0 && this.isFlagged === false) {
@@ -188,6 +188,10 @@ export default class Cell {
                     }
                     break;
                 case 'touchstart':
+                    if (!this.tapTime) {
+                        this.tapTime = new Date().getTime();
+                        return;
+                    }
                     if (game.pinchZoom.isDragging === false) {
                         let now = new Date().getTime();
                         let timesince = now - this.tapTime;
@@ -206,7 +210,7 @@ export default class Cell {
                     break;
             }
             
-        });
+        }).bind(this));
         
         // right click listener
         img.addEventListener('contextmenu', rightClickHandler.bind(this));
