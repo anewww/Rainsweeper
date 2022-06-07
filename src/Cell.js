@@ -6,6 +6,7 @@ export default class Cell {
         this.nearMines = 0;
         this.isOpened = false;
         this.isFlagged = false;
+        this.isFlagSwitched = false;
         this.x = x;
         this.y = y;
         this.ind = i;
@@ -190,28 +191,11 @@ export default class Cell {
                     break;
                 case 'touchstart':
                     if (game.pinchZoom.isDragging === false) {
+                        this.isFlagSwitched = false;
                         this.timerID = setTimeout(() => {
                             window.navigator.vibrate(200);
                             rightClickHandler();
                         }, 500); 
-
-                        // if (!this.tapTime) {
-                        //     this.tapTime = new Date().getTime();
-                        //     return;
-                        // }
-                        // let now = new Date().getTime();
-                        // let timesince = now - this.tapTime;
-                        // console.log('now ' + now, ' timesince ' + timesince, ' taptime ' + this.tapTime)
-                        // if ((timesince < 600) && (timesince > 0)) {
-                        //     console.log('rightclickhandler')
-                        //     rightClickHandler.call(this);
-                        // }
-                        // else {
-                        //     game.field.memory = [];
-                        //     this.depthFirstSearch(this.ind, this.jnd);
-                        // }
-                        // this.tapTime = new Date().getTime();
-                        // console.log('taptime ' + this.tapTime)
                     }
                     break;                                
             }
@@ -220,7 +204,7 @@ export default class Cell {
         img.on('touchend', (() => {
             if (this.timerID)
                 clearTimeout(this.timerID);
-            if (!this.isFlagged)
+            if (this.isFlagSwitched === false)
                 game.field.memory = [];
                 this.depthFirstSearch(this.ind, this.jnd);
         }).bind(this));
@@ -228,15 +212,8 @@ export default class Cell {
         // right click listener
         img.addEventListener('contextmenu', rightClickHandler.bind(this));
         function rightClickHandler() {
-            // if (this.isFlagged === false) {
-            //     this.isFlagged = true;
-            //     this.flag();
-            // }
-            // else {
-            //     this.isFlagged = false;
-            //     this.drawClosed();
-            // }
-            if (!this.isFlagged) {
+            this.isFlagSwitched = true;
+            if (this.isFlagged === false) {
                 this.isFlagged = true;
                 this.flag();
             }
