@@ -192,23 +192,23 @@ export default class Cell {
                     }
                     break;
                 case 'touchstart':
+                    console.log(game.pinchZoom.isDragging)
                     if (game.pinchZoom.isDragging === false) {
                         this.isFlagSwitched = false;
-                        console.log(this.isFlagSwitched)
                         this.timerID = setTimeout(() => {
                             window.navigator.vibrate(200);
                             rightClickHandler.call(this);
-                        }, 500); 
+                        }, 500);
                     }
                     break;
             }
         }).bind(this));
 
         img.on('touchend', (() => {
+            console.log(game.pinchZoom.isDragging)
             if (game.pinchZoom.isDragging === false) {
                 if (this.timerID)
                     clearTimeout(this.timerID);
-                console.log(this.isFlagSwitched)
                 if (this.isFlagSwitched === false) {
                     game.field.memory = [];
                     this.depthFirstSearch(this.ind, this.jnd);
@@ -220,7 +220,6 @@ export default class Cell {
         img.addEventListener('contextmenu', rightClickHandler.bind(this));
         function rightClickHandler() {
             this.isFlagSwitched = true;
-            console.log(this.isFlagSwitched)
             if (this.isFlagged === false) {
                 this.isFlagged = true;
                 this.flag();
