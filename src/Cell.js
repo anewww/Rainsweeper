@@ -192,8 +192,7 @@ export default class Cell {
                     if (game.pinchZoom.isDragging === false) {
                         this.timerID = setTimeout(() => {
                             window.navigator.vibrate(200);
-                            game.field.memory = [];
-                            this.depthFirstSearch(this.ind, this.jnd);
+                            rightClickHandler();
                         }, 500); 
 
                         // if (!this.tapTime) {
@@ -219,15 +218,25 @@ export default class Cell {
         }).bind(this));
 
         img.on('touchend', (() => {
-            if (this.timerID) {
+            if (this.timerID)
                 clearTimeout(this.timerID);
-            }
+            if (!this.cell.isFlagged)
+                game.field.memory = [];
+                this.depthFirstSearch(this.ind, this.jnd);
         }).bind(this));
         
         // right click listener
         img.addEventListener('contextmenu', rightClickHandler.bind(this));
         function rightClickHandler() {
-            if (this.isFlagged === false) {
+            // if (this.isFlagged === false) {
+            //     this.isFlagged = true;
+            //     this.flag();
+            // }
+            // else {
+            //     this.isFlagged = false;
+            //     this.drawClosed();
+            // }
+            if (!this.isFlagged) {
                 this.isFlagged = true;
                 this.flag();
             }
@@ -236,6 +245,5 @@ export default class Cell {
                 this.drawClosed();
             }
         }
-        //img.on('dbltap', rightClickHandler);
     }
 }
