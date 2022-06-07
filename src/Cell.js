@@ -202,11 +202,13 @@ export default class Cell {
         }).bind(this));
 
         img.on('touchend', (() => {
-            if (this.timerID)
-                clearTimeout(this.timerID);
-            if (this.isFlagSwitched === false)
-                game.field.memory = [];
-                this.depthFirstSearch(this.ind, this.jnd);
+            if (game.pinchZoom.isDragging === false) {
+                if (this.timerID)
+                    clearTimeout(this.timerID);
+                if (this.isFlagSwitched === false)
+                    game.field.memory = [];
+                    this.depthFirstSearch(this.ind, this.jnd);
+            }
         }).bind(this));
         
         // right click listener
