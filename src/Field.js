@@ -8,6 +8,7 @@ export default class Field {
         this.width = w;
         this.height = h;
         this.mines = m;
+        this.fieldImg = null;
     }
 
     create() {
@@ -15,11 +16,33 @@ export default class Field {
         for (let i = 0; i < this.width; i++) {
             this.cells[i] = [];
             for (let j = 0; j < this.height; j++) {
-                this.cells[i][j] = new Cell(i * 50 * game.scale + ((window.innerWidth - 50 * game.scale * this.width) / 2), j * 50 * game.scale + 50, i, j);
-                this.cells[i][j].drawClosed();
+                this.cells[i][j] = new Cell(i * 50 * game.scale + ((window.innerWidth - 50 * game.scale * this.width) / 2), j * 50 * game.scale + 75, i, j);
             }
         }
+        this.draw.call(this);
         this.generateMines();
+    }
+
+    draw() {
+        let fieldImgObj = new Image();
+        fieldImgObj.src = './src/img/field-12x15.png'
+        this.fieldImg = new Konva.Image({
+            x: this.cells[0][0].x - 50 * game.scale,
+            y: this.cells[0][0].y - 50 * game.scale,
+            image: fieldImgObj,
+            width: 700,
+            height: 850,
+            scaleX: game.scale,
+            scaleY: game.scale,
+        });
+        game.stage.add(game.layerField);
+        game.layerField.add(this.fieldImg);
+        game.layerField.zIndex(0);
+        for (let row of this.cells) {
+            for (let cell of row) {
+                cell.drawClosed();
+            }
+        }
     }
 
     generateMines() {
