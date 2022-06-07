@@ -209,9 +209,10 @@ export default class Cell {
                 if (this.timerID)
                     clearTimeout(this.timerID);
                 console.log(this.isFlagSwitched)
-                if (this.isFlagSwitched === false)
+                if (this.isFlagSwitched === false) {
                     game.field.memory = [];
                     this.depthFirstSearch(this.ind, this.jnd);
+                }
             }
         }).bind(this));
         
