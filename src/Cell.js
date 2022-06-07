@@ -194,7 +194,7 @@ export default class Cell {
                         this.isFlagSwitched = false;
                         this.timerID = setTimeout(() => {
                             window.navigator.vibrate(200);
-                            rightClickHandler();
+                            rightClickHandler.call(this);
                         }, 500); 
                     }
                     break;                                
