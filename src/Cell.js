@@ -11,7 +11,8 @@ export default class Cell {
         this.ind = i;
         this.jnd = j;
         this.image = null;
-        this.tapTime = 0;
+        //this.tapTime = null;
+        this.timerID = null;
     }
 
     get NearMines() {
@@ -188,28 +189,39 @@ export default class Cell {
                     }
                     break;
                 case 'touchstart':
-                    // if (!this.tapTime) {
-                    //     this.tapTime = new Date().getTime();
-                    //     return;
-                    // }
                     if (game.pinchZoom.isDragging === false) {
-                        let now = new Date().getTime();
-                        let timesince = now - this.tapTime;
-                        console.log('now ' + now, ' timesince ' + timesince, ' taptime ' + this.tapTime)
-                        if ((timesince < 600) && (timesince > 0)) {
-                            console.log('rightclickhandler')
-                            rightClickHandler.call(this);
-                        }
-                        else {
+                        this.timerID = setTimeout(() => {
+                            window.navigator.vibrate(200);
                             game.field.memory = [];
                             this.depthFirstSearch(this.ind, this.jnd);
-                        }
-                        this.tapTime = new Date().getTime();
-                        console.log('taptime ' + this.tapTime)
+                        }, 500); 
+
+                        // if (!this.tapTime) {
+                        //     this.tapTime = new Date().getTime();
+                        //     return;
+                        // }
+                        // let now = new Date().getTime();
+                        // let timesince = now - this.tapTime;
+                        // console.log('now ' + now, ' timesince ' + timesince, ' taptime ' + this.tapTime)
+                        // if ((timesince < 600) && (timesince > 0)) {
+                        //     console.log('rightclickhandler')
+                        //     rightClickHandler.call(this);
+                        // }
+                        // else {
+                        //     game.field.memory = [];
+                        //     this.depthFirstSearch(this.ind, this.jnd);
+                        // }
+                        // this.tapTime = new Date().getTime();
+                        // console.log('taptime ' + this.tapTime)
                     }
-                    break;
+                    break;                                
             }
-            
+        }).bind(this));
+
+        img.on('touchend', (() => {
+            if (this.timerID) {
+                clearTimeout(this.timerID);
+            }
         }).bind(this));
         
         // right click listener
