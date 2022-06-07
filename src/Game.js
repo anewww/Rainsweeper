@@ -9,6 +9,7 @@ export default class Game {
             centeredScaling: true,
         });
         this.layer = new Konva.Layer();
+        this.layerField = new Konva.Layer();
         this.cellStatus = {
             mine: 'mine',
             empty: 'mt',
@@ -27,6 +28,7 @@ export default class Game {
         // this.stage.scaleX(game.scale);
         // this.stage.scaleY(game.scale);
         this.stage.add(this.layer);
+        // this.layer.zIndex(1);
 
         // prevent contextmenu while rightclicking
         this.stage.addEventListener('contextmenu', (e) => {
