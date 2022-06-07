@@ -54,6 +54,8 @@ export default class Cell {
             image: flagImgObj,
             width: 50,
             height: 50,
+            scaleX: game.scale,
+            scaleY: game.scale,
         });
         game.layer.add(this.image);
         this.addListener(this.image);
@@ -192,12 +194,13 @@ export default class Cell {
                 case 'touchstart':
                     if (game.pinchZoom.isDragging === false) {
                         this.isFlagSwitched = false;
+                        console.log(this.isFlagSwitched)
                         this.timerID = setTimeout(() => {
                             window.navigator.vibrate(200);
                             rightClickHandler.call(this);
                         }, 500); 
                     }
-                    break;                                
+                    break;
             }
         }).bind(this));
 
@@ -205,6 +208,7 @@ export default class Cell {
             if (game.pinchZoom.isDragging === false) {
                 if (this.timerID)
                     clearTimeout(this.timerID);
+                console.log(this.isFlagSwitched)
                 if (this.isFlagSwitched === false)
                     game.field.memory = [];
                     this.depthFirstSearch(this.ind, this.jnd);
@@ -215,6 +219,7 @@ export default class Cell {
         img.addEventListener('contextmenu', rightClickHandler.bind(this));
         function rightClickHandler() {
             this.isFlagSwitched = true;
+            console.log(this.isFlagSwitched)
             if (this.isFlagged === false) {
                 this.isFlagged = true;
                 this.flag();
