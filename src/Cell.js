@@ -220,7 +220,7 @@ export default class Cell {
         img.on('touchend', (() => {
             if (this.timerID)
                 clearTimeout(this.timerID);
-            if (!this.cell.isFlagged)
+            if (!this.isFlagged)
                 game.field.memory = [];
                 this.depthFirstSearch(this.ind, this.jnd);
         }).bind(this));
