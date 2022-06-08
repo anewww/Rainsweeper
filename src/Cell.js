@@ -205,7 +205,7 @@ export default class Cell {
                     break;
             }
             if (this.status === 'mine') {
-                for (let row of field.cells) {
+                for (let row of game.field.cells) {
                     for (let cell of row) {
                         cell.off('mousedown touchstart touchend');
                         cell.removeEventListener('contextmenu', rightClickHandler);
