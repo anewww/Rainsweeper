@@ -201,11 +201,18 @@ export default class Cell {
                                 rightClickHandler.call(this);
                             }, 500);
                         }
-                    }, 50);
-
+                    }, 100);
                     break;
             }
-        }).bind(this));
+            if (this.status === 'mine') {
+                for (let row of game.cells) {
+                    for (let cell of row) {
+                        cell.off('mousedown touchstart touchend');
+                        cell.removeEventListener('contextmenu', rightClickHandler);
+                    }
+                }
+            }
+            }).bind(this));
 
         img.on('touchend', (() => {
             console.log(game.pinchZoom.isDragging)
