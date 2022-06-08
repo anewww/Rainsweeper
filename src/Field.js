@@ -121,5 +121,12 @@ export default class Field {
             }
         }
         this.memory = [];
+        if (game.cells[0][0].getAttribute('listener') !== 'true') {
+            for (let row of game.cells) {
+                for (let cell of row) {
+                    cell.addListener(cell.img);
+                }
+            }
+        }
     }
 }
