@@ -6,10 +6,15 @@ export default class Game {
             container: 'container',
             width: window.innerWidth,
             height: window.innerHeight,
-            centeredScaling: true,
+        });
+        this.stageMenu = new Konva.Stage({
+            container: 'menu',
+            width: window.innerWidth,
+            height: (window.innerWidth / 1920) * 100,
         });
         this.layer = new Konva.Layer();
         this.layerField = new Konva.Layer();
+        this.layerMenu = new Konva.Layer();
         this.cellStatus = {
             mine: 'mine',
             empty: 'mt',
@@ -25,10 +30,22 @@ export default class Game {
     }
 
     init() {
-        // this.stage.scaleX(game.scale);
-        // this.stage.scaleY(game.scale);
         this.stage.add(this.layer);
-        // this.layer.zIndex(1);
+        this.stageMenu.add(this.layerMenu);
+        let menu = document.getElementById('menu');
+        let menuOffsetY = window.innerHeight - this.stageMenu.height();
+        menu.style.top = menuOffsetY + 'px';
+
+        let menuImgObj = new Image();
+        menuImgObj.src = './src/img/menu.png'
+        let menuImg = new Konva.Image({
+            x: 0,
+            y: 0,
+            image: menuImgObj,
+            width: this.stageMenu.width(),
+            height: this.stageMenu.height(),
+        });
+        this.layerMenu.add(menuImg);
 
         // prevent contextmenu while rightclicking
         this.stage.addEventListener('contextmenu', (e) => {
@@ -102,7 +119,9 @@ export default class Game {
         }
 
         this.stage.on('touchend', (function() {
+            setTimeout(() => {
             this.pinchZoom.isDragging = false;
+        }, 100);
             this.pinchZoom.lastDist = 0;
             this.pinchZoom.lastCenter = null;
         }).bind(this));
@@ -115,6 +134,4 @@ export default class Game {
         //this.field.reveal();
 
     }
-
-
 }
