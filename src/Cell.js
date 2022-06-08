@@ -192,7 +192,7 @@ export default class Cell {
                     }
                     break;
                 case 'touchstart':
-                    //setTimeout(() => {
+                    setTimeout(() => {
                         console.log(game.pinchZoom.isDragging)
                         if (game.pinchZoom.isDragging === false) {
                             this.isFlagSwitched = false;
@@ -201,7 +201,7 @@ export default class Cell {
                                 rightClickHandler.call(this);
                             }, 500);
                         }
-                    //}, 100);
+                    }, 100);
                     break;
             }
             if (this.status === 'mine') {
@@ -216,14 +216,16 @@ export default class Cell {
 
         img.on('touchend', (() => {
             console.log(game.pinchZoom.isDragging)
-            if (this.timerID)
-                clearTimeout(this.timerID);
-            if (game.pinchZoom.isDragging === false) {  
-                if (this.isFlagSwitched === false) {
-                    game.field.memory = [];
-                    this.depthFirstSearch(this.ind, this.jnd);
+            setTimeout(() => {
+                if (this.timerID)
+                    clearTimeout(this.timerID);
+                if (game.pinchZoom.isDragging === false) {  
+                    if (this.isFlagSwitched === false) {
+                        game.field.memory = [];
+                        this.depthFirstSearch(this.ind, this.jnd);
+                    }
                 }
-            }
+            }, 100);
         }).bind(this));
         
         // right click listener
