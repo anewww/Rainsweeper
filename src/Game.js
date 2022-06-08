@@ -59,7 +59,7 @@ export default class Game {
         });
 
         // mobile scaling
-        this.stage.on('touchmove', (function(e) {
+        this.stage.on('touchmove touchstart', (function(e) {
             e.evt.preventDefault();
             let touch1 = e.evt.touches[0];
             let touch2 = e.evt.touches[1];
