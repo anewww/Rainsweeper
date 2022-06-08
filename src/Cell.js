@@ -192,7 +192,7 @@ export default class Cell {
                     }
                     break;
                 case 'touchstart':
-                    setTimeout(() => {
+                    //setTimeout(() => {
                         console.log(game.pinchZoom.isDragging)
                         if (game.pinchZoom.isDragging === false) {
                             this.isFlagSwitched = false;
@@ -201,11 +201,11 @@ export default class Cell {
                                 rightClickHandler.call(this);
                             }, 500);
                         }
-                    }, 100);
+                    //}, 100);
                     break;
             }
             if (this.status === 'mine') {
-                for (let row of game.cells) {
+                for (let row of field.cells) {
                     for (let cell of row) {
                         cell.off('mousedown touchstart touchend');
                         cell.removeEventListener('contextmenu', rightClickHandler);
