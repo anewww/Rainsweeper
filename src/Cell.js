@@ -207,8 +207,8 @@ export default class Cell {
             if (this.status === 'mine') {
                 for (let row of game.field.cells) {
                     for (let cell of row) {
-                        cell.off('mousedown touchstart touchend');
-                        cell.removeEventListener('contextmenu', rightClickHandler);
+                        cell.image.off('mousedown touchstart touchend');
+                        cell.image.removeEventListener('contextmenu', rightClickHandler);
                     }
                 }
             }
