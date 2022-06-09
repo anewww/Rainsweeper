@@ -1,0 +1,13 @@
+{
+    "buttons": [
+        {
+            "difficult": "./src/img/dif-easy.png",
+            "newgame": "./src/img/newgame.png",
+            "restart": "./src/img/restart.png",
+            "reveal": "./src/img/reveal.png",
+            "np": "./src/img/np.png",
+            "mute": "./src/img/mute.png",
+            "undo": "./src/img/undo.png"
+        }
+    ]
+}
