@@ -1,0 +1,11 @@
+{
+    "buttons": [
+        "./src/img/dif-easy.png",
+        "./src/img/newgame.png",
+        "./src/img/restart.png",
+        "./src/img/reveal.png",
+        "./src/img/np.png",
+        "./src/img/mute.png",
+        "./src/img/undo.png"
+    ]
+}
