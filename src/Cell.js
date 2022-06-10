@@ -222,7 +222,7 @@ export default class Cell {
                                 this.rightClickHandler()//.call(this);
                             }, 500);
                         }
-                    }, 70);
+                    }, 10);
                     break;
             }
             }).bind(this));
@@ -238,7 +238,7 @@ export default class Cell {
                         this.depthFirstSearch(this.ind, this.jnd);
                     }
                 }
-            }, 70);
+            }, 10);
         }).bind(this));
         
         
