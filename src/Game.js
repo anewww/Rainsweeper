@@ -135,7 +135,7 @@ export default class Game {
         this.stage.on('touchend', (function() {
             setTimeout(() => {
             this.pinchZoom.isDragging = false;
-        }, 100);
+        }, 20);
             this.pinchZoom.lastDist = 0;
             this.pinchZoom.lastCenter = null;
         }).bind(this));
