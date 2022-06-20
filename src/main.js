@@ -1,27 +1,19 @@
 import Game from './Game.js'
-import Rain from './Rain.js';
-export { game }
+import Rain from './Rain.js'
+export { game, rain }
 
-const rainObj = new Rain();
-rainObj.init();
-rainObj.animloop();
+const rain = new Rain();
+rain.init();
+rain.animloop();
 
 new Game();
 const game = Game.getInstance();
 mediaQueries();
 game.init();
-const mines = 20;
+const mines = 1;
 const width = 12; //12 //15 //20
 const height = 15; //15 //18 //20
 game.newGame(width, height, mines, null);
-
-setTimeout(() => {
-    console.log('lightning')
-    rainObj.clearCanvas3();
-    rainObj.createLightning();
-    rainObj.drawLightning();
-}, 5000);
-
 
 
 
