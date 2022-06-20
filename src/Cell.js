@@ -1,4 +1,4 @@
-import { game } from './main.js'
+import { game, rain } from './main.js'
 
 export default class Cell {
     constructor(x, y, i, j) {
@@ -49,7 +49,7 @@ export default class Cell {
             game.field.memory.push(this);
             game.field.opened.push(this);
             switch (this.status) {
-                case 'mine': 
+                case 'mine':
                     this.drawMine();
                     for (let row of game.field.cells) {
                         for (let cell of row) {
@@ -59,6 +59,12 @@ export default class Cell {
                             }
                         }
                     }
+                    console.log('lightning')
+                    game.lightSound.play();
+                    game.lightSound.currentTime = 0;
+                    rain.clearCanvas3();
+                    rain.createLightning();
+                    rain.drawLightning();
                     break;
                 case 'mt':
                     this.drawEmpty();
@@ -226,6 +232,7 @@ export default class Cell {
                         if (game.pinchZoom.isDragging) {
                             this.isFlagSwitched = false;
                             this.timerID = setTimeout(() => {
+                                e.evt.preventDefault();
                                 window.navigator.vibrate(200);
                                 this.rightClickHandler();
                                 if (game.field.isWon()) {
@@ -262,11 +269,13 @@ export default class Cell {
     }
 
     addRCListener(img) {
-        img.addEventListener('contextmenu', this.rightClickHandler.bind(this));
+        img.addEventListener('contextmenu', (e) => {
+            e.preventDefault();
+            this.rightClickHandler.call(this);
+        });
     }
 
     rightClickHandler(e) {
-        e.preventDefault();
         this.isFlagSwitched = true;
         if (!this.isFlagged) {
             game.field.memory = [];
