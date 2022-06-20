@@ -229,7 +229,7 @@ export default class Cell {
                     break;
                 case 'touchstart':
                     setTimeout(() => {
-                        if (game.pinchZoom.isDragging) {
+                        if (!game.pinchZoom.isDragging) {
                             this.isFlagSwitched = false;
                             this.timerID = setTimeout(() => {
                                 e.evt.preventDefault();
