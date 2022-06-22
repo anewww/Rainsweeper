@@ -63,7 +63,7 @@ export default class Cell {
                             }
                         }
                     }
-                    console.log('lightning')
+                    this.loseAnimation();
                     game.lightSound.play();
                     game.lightSound.currentTime = 0;
                     rain.clearCanvas3();
@@ -319,5 +319,18 @@ export default class Cell {
                 }
             } 
         }
+    }
+
+    loseAnimation() {
+        game.stage.opacity(0.5);
+        setTimeout(() => {
+            game.stage.opacity(1);
+        }, 100);
+        setTimeout(() => {
+            game.stage.opacity(0.5);
+        }, 200);
+        setTimeout(() => {
+            game.stage.opacity(1);
+        }, 300);
     }
 }
