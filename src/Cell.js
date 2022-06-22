@@ -295,8 +295,8 @@ export default class Cell {
     }
 
     addNumberListener(img, num) {
-        img.on('mousedown', handler.bind(this));
-        num.on('mousedown', handler.bind(this));
+        img.on('mousedown touchstart', handler.bind(this));
+        num.on('mousedown touchstart', handler.bind(this));
         function handler() {
             if (this.status === 'num' && this.isOpened) {
                 let flagged = 0;
