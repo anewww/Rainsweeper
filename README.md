@@ -1,6 +1,6 @@
 # ⚡ Rainsweeper
 
-> A custom-built Minesweeper game written in vanilla JavaScript and rendered on HTML5 Canvas — featuring two game modes, zoom/drag support, undo, and logic-based generation.
+A custom-built Minesweeper game written in vanilla JavaScript and rendered on HTML5 Canvas — featuring two game modes, zoom/drag support, undo, and logic-based generation.
 
 ---
 
@@ -38,7 +38,7 @@ The field is generated **after your first click**, and only if it can be solved 
 This approach is based on academic research showing that Minesweeper solvability is **NP-complete**.  
 The implementation brute-forces board generation until it finds a solvable one.
 
-> ⚠️ Currently in development: may take long to generate solvable fields on Medium/Hard difficulty.
+⚠️ Currently in development: may take long to generate solvable fields on Medium/Hard difficulty.
 
 ---
 
