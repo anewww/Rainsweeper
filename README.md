@@ -7,7 +7,7 @@ A custom-built Minesweeper game written in vanilla JavaScript and rendered on HT
 ## ⚠️ Epilepsy Warning
 
 This game includes bright lightning flashes and thunder sound effects.  
-If you're sensitive to flashing lights or loud noises, we strongly recommend avoiding this application.  
+If you're sensitive to flashing lights or loud noises, it is strongly recommended avoiding this application.  
 **Stay safe and healthy! ❤️**
 
 ---
